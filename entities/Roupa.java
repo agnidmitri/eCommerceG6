@@ -1,7 +1,8 @@
+  
 package entities;
 
 public class Roupa extends Produto {
-	
+
 	private String marca;
 
 	public Roupa(String codigo, String descricao, double valorUnid, int estoque, String marca) {
