@@ -1,6 +1,7 @@
 package entities;
+package entities;
 
-public class Produto
+public abstract class Produto
 {
 		
 		//atributes
@@ -22,6 +23,7 @@ public class Produto
 			this.estoque = estoque;
 		//
 		}
+		
 		public String getDescricao() {
 			return descricao;
 		}
@@ -59,9 +61,7 @@ public class Produto
 			
 			else 
 			{
-				System.out.println("Sem estoque disponível.");
+				System.out.println("Sem estoque disponÃ­vel.");
 			}
 		}
-	
-		
 }
