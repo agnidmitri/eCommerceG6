@@ -39,57 +39,67 @@ public class Loja {
 		System.out.printf("Loja: %s - G6\n%s\n",nome,cnpj);
 		for (Roupa itens : lista)
 		{
-			System.out.printf("Produto: %s | Valor Unit: R$%.2f | Qtde: %d | Valor total: R$%.2f",itens.getDescricao(),itens.getValorUnid(),itens.getEstoque(),itens.getValorUnid()*itens.getEstoque());
+			System.out.printf("Produto: %s | Valor Unit: R$%.2f | Qtde: %d | Valor total: R$%.2f\n",itens.getDescricao(),itens.getValorUnid(),itens.getEstoque(),itens.getValorUnid()*itens.getEstoque());
 			total = total + (itens.getValorUnid()*itens.getEstoque());
 		}
 		imposto = total*0.09;
-		
-		System.out.printf("\nTotal da compra: %.2f\n",total);
-		System.out.println("Forma de pagamento");
-		System.out.println("1 - Transferência/Pix/Boleto (10% de desconto)\n2 - Débito\n3 - Crédito: ");
-		opcao = leia.nextInt();
-		if (opcao == 1) 
-		{
-			desconto = total*0.1;
-			System.out.println("NOTA FISCAL 985506042021");
-			System.out.println("ESTABELECIMENTO: "+nome+"- G6");
-			System.out.println("CNPJ: 489.5765.3350-54");
-			System.out.printf("\nTaxa de imposto: R$%.2f\nDesconto: R$%.2f\nTotal da compra: R$%.2f",imposto, desconto, (total-desconto));
-		}
-		else if (opcao==2) 
-		{
-			System.out.println("NOTA FISCAL 985506042021");
-			System.out.println("ESTABELECIMENTO: "+nome+"- G6");
-			System.out.println("CNPJ: 489.5765.3350-54");
-			System.out.printf("Taxa de imposto: R$%.2f\nTotal da compra: R$%.2f",imposto, total);
-		}
-		else if (opcao == 3) 
-		{
-			System.out.println("Quantas vezes deseja parcelar?");
-			System.out.println("1 - 1x (juros 10%)\n2 - 2x (juros 20%): ");
+		do {
+			System.out.printf("\nTotal da compra: %.2f\n",total);
+			System.out.println("Forma de pagamento");
+			System.out.println("1 - TransferÃªncia/Pix/Boleto (10% de desconto)\n2 - DÃ©bito\n3 - CrÃ©dito: ");
 			opcao = leia.nextInt();
 			
-			if(opcao == 1)
+		
+			if (opcao == 1) 
 			{
-				juros10 = total*0.1;
-				System.out.println("NOTA FISCAL 987506042021");
+				desconto = total*0.1;
+				System.out.println("NOTA FISCAL 985506042021");
 				System.out.println("ESTABELECIMENTO: "+nome+"- G6");
 				System.out.println("CNPJ: 489.5765.3350-54");
-				System.out.printf("Taxa de imposto: R$%.2f\nJuros: R$%.2f\nTotal da compra: R$%.2f",imposto, juros10, (total+juros10));
+				System.out.printf("\nTaxa de imposto: R$%.2f\nDesconto: R$%.2f\nTotal da compra: R$%.2f",imposto, desconto, (total-desconto));
 			}
-			else if (opcao == 2)
+			else if (opcao==2) 
 			{
-				juros20 = total*0.2;
-				System.out.println("NOTA FISCAL 995506042021");
+				System.out.println("NOTA FISCAL 985506042021");
 				System.out.println("ESTABELECIMENTO: "+nome+"- G6");
 				System.out.println("CNPJ: 489.5765.3350-54");
-				System.out.printf("Taxa de imposto: R$%.2f\nJuros: R$%.2f\nTotal da compra: R$%.2f",imposto, juros20, (total+juros20/2),(total+juros20));
+				System.out.printf("Taxa de imposto: R$%.2f\nTotal da compra: R$%.2f",imposto, total);
 			}
-			else
+			else if (opcao == 3) 
 			{
-				System.out.println("Opção de parcelamento não disponível.");
-			}	
+				do
+				{
+					System.out.println("Quantas vezes deseja parcelar?");
+					System.out.println("1 - 1x (juros 10%)\n2 - 2x (juros 20%): ");
+					opcao = leia.nextInt();
+					
+					if(opcao == 1)
+					{
+						juros10 = total*0.1;
+						System.out.println("NOTA FISCAL 987506042021");
+						System.out.println("ESTABELECIMENTO: "+nome+"- G6");
+						System.out.println("CNPJ: 489.5765.3350-54");
+						System.out.printf("Taxa de imposto: R$%.2f\nJuros: R$%.2f\nTotal da compra: R$%.2f",imposto, juros10, (total+juros10));
+					}
+					else if (opcao == 2)
+					{
+						juros20 = total*0.2;
+						System.out.println("NOTA FISCAL 995506042021");
+						System.out.println("ESTABELECIMENTO: "+nome+"- G6");
+						System.out.println("CNPJ: 489.5765.3350-54");
+						System.out.printf("Taxa de imposto: R$%.2f\nJuros: R$%.2f\nValor parcela: R$ %.2f\nTotal da compra: R$%.2f",imposto, juros20, ((total+juros20)/2),(total+juros20));
+					}
+					else
+					{
+						System.out.println("OpÃ§Ã£o de parcelamento nÃ£o disponÃ­vel.");
+					}
+				}while(opcao != 1 && opcao != 2);
+			}
+			else {
+				System.out.println("OpÃ§Ã£o invalida");
+			}
 		}
+		while(opcao !=1 && opcao !=2 && opcao !=3);
 		System.out.println("\nDigite qualquer tecla para continuar: ");
 		leia.next();
 	}
