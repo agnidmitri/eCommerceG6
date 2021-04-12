@@ -1,7 +1,10 @@
-package applications;
+package application;
 
-import entities.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import entities.Roupa;
 
 public class Loja 
 {
@@ -13,19 +16,20 @@ public class Loja
 		int opcao;
 		int x;
 		int quantidade;
-	
+		
 		
 		Locale.setDefault(Locale.US);
 		Scanner leia = new Scanner (System.in); 
 		List <Roupa> lista = new ArrayList<>();
 		List <Roupa> carrinho = new ArrayList<>();
 		
-		lista.add(roupa = new Roupa ("P00154","CalÁas",80.95, 10,"Kemet"));
+		lista.add(roupa = new Roupa ("P00154","Cal√ßas",80.95, 10,"Kemet"));
 		lista.add(roupa = new Roupa ("S00155","Camisetas",45.50, 10,"Kemet"));
 		lista.add(roupa = new Roupa ("J00156","Jaquetas",125.99, 10,"Kemet"));
 		lista.add(roupa = new Roupa ("D00157","Vestidos",110.00, 10,"Kemet"));
+		lista.add(roupa = new Roupa ("D00158","Shorts",55.00, 10,"Kemet"));
 
-		boolean confirma [] = new boolean [lista.size()];
+		boolean confirma[] = new boolean [lista.size()];
 		for (x = 0; x<confirma.length;x++)
 		{
 			confirma[x]=true;
@@ -38,7 +42,7 @@ public class Loja
 				{
 					System.out.printf("%d - %s\n",x+1,lista.get(x).getDescricao());
 				}
-				System.out.printf("%d - Carrinho.\n",x+1);
+				System.out.printf("%d - Carrinho\n",x+1);
 				System.out.printf("%d - Sair\n", x+2);
 				System.out.println("\nSelecione uma categoria: ");
 				opcao = leia.nextInt();
@@ -48,29 +52,34 @@ public class Loja
 				{
 					if (confirma[opcao] == true) 
 					{
-						System.out.printf("DescriÁ„o: %s %s | Valor Unit: R$%.2f | DisponÌvel em estoque: %d\n", lista.get(opcao).getDescricao(),lista.get(opcao).getMarca(),lista.get(opcao).getValorUnid(), lista.get(opcao).getEstoque());
-						System.out.print("\nQuantidade: ");
-						quantidade = leia.nextInt();
-						
-						 if (quantidade <= lista.get(opcao).getEstoque() && quantidade >=0) 
-						 {
-							 lista.get(opcao).tiraEstoque(quantidade);
-							 carrinho.add(roupa = new Roupa(lista.get(opcao).getCodigo(),lista.get(opcao).getDescricao(),lista.get(opcao).getValorUnid(),quantidade, lista.get(opcao).getMarca())); 
+						if(lista.get(opcao).getEstoque()>0) 
+						{
+							System.out.printf("Descri√ß√£o: %s %s | Valor Unit: R$%.2f | Dispon√≠vel em estoque: %d\n", lista.get(opcao).getDescricao(),lista.get(opcao).getMarca(),lista.get(opcao).getValorUnid(), lista.get(opcao).getEstoque());
+							System.out.print("\nQuantidade: ");
+							quantidade = leia.nextInt();
 							
-							 if(quantidade > 0) 
+							 if (quantidade <= lista.get(opcao).getEstoque() && quantidade >=0) 
 							 {
-								confirma[opcao] = false; 
+								 lista.get(opcao).tiraEstoque(quantidade);
+								 carrinho.add(roupa = new Roupa(lista.get(opcao).getCodigo(),lista.get(opcao).getDescricao(),lista.get(opcao).getValorUnid(),quantidade, lista.get(opcao).getMarca())); 
+								
+								 if(quantidade > 0) 
+								 {
+									confirma[opcao] = false; 
+								 }
 							 }
-						 }
-							 else if (quantidade > lista.get(opcao).getEstoque())
-							 {
-								 System.out.println("\nQuantidade n„o disponÌvel em estoque.\n");
-							 }
-							 else 
-							 {
-								 System.out.println("\nOpÁ„o inv·lida.");
-							 }
-						 
+								 else if (quantidade > lista.get(opcao).getEstoque())
+								 {
+									 System.out.println("\nQuantidade n√£o dispon√≠vel em estoque.\n");
+								 }
+								 else 
+								 {
+									 System.out.println("\nOp√ß√£o inv√°lida.");
+								 }
+						}
+						else {
+							System.out.println("fora de estoque ");
+						}
 						}	 
 					else 
 					{
@@ -78,7 +87,13 @@ public class Loja
 					}
 				}
 					
-					else if (opcao == (x)) 
+				else if (opcao == x) 
+				{
+					if(carrinho.size()==0) 
+					{
+						System.out.println("O carrinho esta vazio\nRedirecionado para menu pricipal\n");
+					}
+					else 
 					{
 						limpa();
 						System.out.println("Carrinho");
@@ -91,14 +106,16 @@ public class Loja
 							confirma[x]=true;
 						}
 					}
-					else if (opcao == (x+1))
-					{
-						System.out.println("Fim do programa");
-					}
+						
+				}
+				else if (opcao == (x+1))
+				{
+					System.out.println("Fim do programa");
+				}
 		
 				else 
 				{
-					System.out.println("\nOpÁ„o inv·lida. Tente outra opÁ„o.");
+					System.out.println("\nOp√ß√£o inv√°lida. Tente outra op√ß√£o.");
 				}
 		  } while (opcao !=(lista.size()+1));
 	}
